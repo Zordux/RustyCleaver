@@ -5,7 +5,6 @@ Our project goal is to learn the basics of Remote Access Trojans and try to make
 ## Ideas and Features
 - C2 server
 - Idea: Shows which pc is online 
-- Idea: Shows live footage? | This will be a pain butso maybe not
 <br /> <br />
 - Payload 
 - Main: No windows api only direct sys calls
