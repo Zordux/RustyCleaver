@@ -6,14 +6,12 @@ Our project goal is to learn the basics of Remote Access Trojans and try to make
 - C2 server
 - Idea: Shows which pc is online 
 - Idea: Shows live footage? | This will be a pain butso maybe not
-
+<br /> <br />
 - Payload 
 - Main: No windows api only direct sys calls
-- Idea: Place rust code in a dll
-- Idea: Complie without rust standerd libary no std
-- Idea: Useing a msi file format | For first execution 
-- Idea: Inject into a running process like explore. 
-- Idea: Dll hijacking
-- Idea: UAC Bypass with FodHelper.exe
-- Idea: Hide from task manager and Defender 
-- Idea: Obfuscation?
+- First Step: Coding the Dropper
+- Second Step: Dropper Stores new exe in a hidden location
+- Third Step: Create a Suspended Process for process hollowing
+- Forth Step: Write the Payload into suspended process's memory
+- Fifth Step: Persistence Registrys? Scheduled task? Windows Services?
+- Sixth Step: Test Rat functionality
