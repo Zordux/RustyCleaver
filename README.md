@@ -1,23 +1,66 @@
-# Project Outline and Ideas
+## Project
+Our goal is to explore the fundamentals of Remote Access Trojans (RATs) and experiment with techniques to conceal them within a Windows environment.
 
-Our project goal is to learn the basics of Remote Access Trojans and try to make it hidden in a windows environment.
+## Dropper / Payload Loader
+The dropper is responsible for process hollowing svchost.exe to inject our payload into it.
 
-## Ideas and Features
-- C2 server
-- Idea: Shows which pc's are online 
-<br /> <br />
-- Payload 
-- Main: No windows api only direct sys calls ? Rust and sys calls dont get along so might have to update to api calls
-- First Step: Coding the Dropper
-- Second Step: Dropper Stores new exe in a hidden location
-- Third Step: Create a Suspended Process for process hollowing
-- Forth Step: Write the Payload into suspended process's memory
-- Fifth Step: Persistence Registrys? Scheduled task? Windows Services?
-- Sixth Step: Test Rat functionality
-<br /> <br />
-## Why only system calls and why dont system calls seem to be the best method
-Useing windows api would most likey be more detectable because they are commanly used in many well known other malware increasing our detection rate.
-Rust doesn’t have native, built-in support for system calls unlike C or C++ does. We could use Third-party crates like libc or winapi, but it requires more setup and unsafe code.
-So while using sys call might be harder and could lead to more complex code, it would be our best bet to have a worse detection rate.
-## Why Process Hollowing
-Injecting code into a process that is already verified to be safe is an effective method because all we need to do is ensure that our code is unique and not easily detected, allowing us to bypass fingerprint scans. This is because process hollowing involves taking the original process's code and replacing it with ours, all within memory.
+- It will conceal itself and implement a persistence mechanism to ensure the hollowed process remains active, keeping the payload running in the background.
+
+## Payload
+
+The payload serves as the core RAT component, waiting for commands from the C2 server.
+
+- It will execute received commands in the background and send responses back to the C2 server.
+
+## C2 Server
+The C2 server facilitates communication with the RAT, issuing commands and receiving execution results.
+
+## Ideas
+- DNS-based communication between the C2 server and the client.
+
+- Persistence mechanisms using Registry, Scheduled Tasks, or Windows Services.
+
+- Encryption to protect communication and stored data.
+
+- Obfuscation techniques to evade detection.
+
+## Step-by-Step Breakdown
+### 1. Dropper Execution
+
+ 1. The dropper is executed on the target machine.
+
+ 2. It hides itself and moves to a less suspicious directory (e.g., C:\ProgramData).
+
+ 3. It establishes persistence (e.g., adding a Registry key or Scheduled Task).
+
+ 4. It uses process hollowing to inject the payload into svchost.exe.
+
+ 5. The dropper self-deletes to avoid detection. Detecion off desktop or where ever the user ran it.
+
+### 2. Payload Execution
+
+  1. The payload is now running inside svchost.exe.
+
+  2. It waits for instructions from the C2 server.
+
+  3. It sends an initial beacon to let the server know it's active.
+
+  4. It listens for and executes commands from the C2 server (e.g., file retrieval, keylogging, or system commands).
+
+### 3. C2 Server Communication
+
+  1. The C2 server is set up and listening for incoming connections.
+
+  2. It receives beacons from the infected client.
+
+  3. The attacker sends commands to control the infected machine.
+
+  4. The RAT executes the commands and sends the output back to the server.
+
+## Why Process Hollowing?
+
+Process hollowing is an effective technique because it allows code injection into a trusted system process, making detection more difficult.
+
+- By replacing the memory space of a legitimate process with our own code, we can evade signature-based detection and fingerprinting mechanisms.
+
+- Since execution remains within a recognized system process, this method can help bypass security measures that rely on process integrity verification.
