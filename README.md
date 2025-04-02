@@ -35,7 +35,7 @@ The C2 server facilitates communication with the RAT, issuing commands and recei
 
  4. It uses process hollowing to inject the payload into svchost.exe.
 
- 5. The dropper self-deletes to avoid detection. Detecion off desktop or where ever the user ran it.
+ 5. The dropper self-deletes to avoid detection. Deletion off desktop or where ever the user ran it.
 
 ### 2. Payload Execution
 
